@@ -318,8 +318,9 @@ function buildFilters(){
   const order=['Outfit','Back Bling','Pickaxe','Glider','Emote','Wrap','Bundle','Spray','Contrail','Toy'];
   const sorted=[...order.filter(t=>types.includes(t)),...types.filter(t=>!order.includes(t))];
   const row=document.getElementById('filter-row');
-  row.innerHTML='<button class="filter-btn active" onclick="setFilter('all',this)">All ('+allItems.length+')</button>'
-    +sorted.map(t=>'<button class="filter-btn" onclick="setFilter(''+t+'',this)">'+(TYPE_LABELS[t]||t+'s')+' ('+allItems.filter(i=>i.type===t).length+')</button>').join('');
+  const allBtn='<button class="filter-btn active" onclick="setFilter(\'all\',this)">All ('+allItems.length+')</button>';
+  const typeBtns=sorted.map(t=>'<button class="filter-btn" onclick="setFilter(\''+t+'\',this)">'+(TYPE_LABELS[t]||t+'s')+' ('+allItems.filter(i=>i.type===t).length+')</button>').join('');
+  row.innerHTML=allBtn+typeBtns;
 }
 
 function setFilter(f,btn){
