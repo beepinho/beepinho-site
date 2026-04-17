@@ -281,8 +281,10 @@ footer{border-top:.5px solid var(--border);padding:2rem 3rem;display:flex;align-
 
 <script>
 
-const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.1});
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')})},{threshold:0.05,rootMargin:'0px 0px -10px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+// Force trigger for anything already in viewport on load
+setTimeout(()=>{document.querySelectorAll('.reveal').forEach(el=>{const r=el.getBoundingClientRect();if(r.top<window.innerHeight)el.classList.add('in');});},100);
 window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>40));
 
 let allItems=[];
