@@ -1,6 +1,8 @@
-export const config = { runtime: 'edge' };
+export default async function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Cache-Control', 'no-cache, no-store');
+  res.setHeader('Content-Type', 'application/json');
 
-export default async function handler(req) {
   try {
     const r = await fetch('https://fortnite-api.com/v2/shop', {
       headers: {
@@ -12,29 +14,11 @@ export default async function handler(req) {
     const now = new Date();
     const items = [];
     const seen = new Set();
+    const entries = raw?.data?.entries || [];
 
-    // Collect ALL entries from ALL sections of the shop
-    const allEntries = [];
-    const shopData = raw?.data || {};
-
-    // Main entries
-    if (shopData.entries) allEntries.push(...shopData.entries);
-
-    // Some API versions nest under named sections
-    for (const key of Object.keys(shopData)) {
-      const section = shopData[key];
-      if (Array.isArray(section)) {
-        for (const entry of section) {
-          if (entry && (entry.items || entry.bundle)) allEntries.push(entry);
-        }
-      } else if (section && Array.isArray(section.entries)) {
-        allEntries.push(...section.entries);
-      }
-    }
-
-    for (const entry of allEntries) {
+    for (const entry of entries) {
       const price = entry.finalPrice || entry.regularPrice || 0;
-      const entryItems = entry.items || [];
+      const entryItems = entry.brItems || entry.items || [];
       const bundle = entry.bundle;
 
       if (bundle && bundle.name) {
@@ -44,7 +28,7 @@ export default async function handler(req) {
           const bundleImg = bundle.image
             || entryItems.find(i => i.images?.featured)?.images?.featured
             || entryItems.find(i => i.images?.icon)?.images?.icon || '';
-          items.push({ name: bundle.name, type: 'Bundle', rarity: '', description: bundle.info || '', image: bundleImg, price });
+          items.push({ name: bundle.name, type: 'Bundle', rarity: '', image: bundleImg, price });
         }
       }
 
@@ -57,31 +41,19 @@ export default async function handler(req) {
           name: item.name,
           type: item.type?.value || 'Cosmetic',
           rarity: item.rarity?.value || '',
-          description: item.description || '',
           image: item.images?.featured || item.images?.icon || item.images?.smallIcon || '',
           price
         });
       }
     }
 
-    const data = {
+    res.status(200).json({
       updated: now.toISOString().slice(0,16).replace('T',' ') + ' UTC',
       date: now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
       count: items.length,
       items
-    };
-
-    return new Response(JSON.stringify(data), {
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        'Cache-Control': 'no-cache, no-store'
-      }
     });
   } catch (e) {
-    return new Response(JSON.stringify({ error: e.message, items: [] }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-    });
+    res.status(500).json({ error: e.message, items: [] });
   }
 }
