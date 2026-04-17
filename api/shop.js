@@ -17,49 +17,56 @@ export default async function handler(req) {
     for (const entry of entries) {
       const price = entry.finalPrice || 0;
       const entryItems = entry.items || [];
+      const bundle = entry.bundle;
 
-      // If it's a bundle with multiple items, use the bundle as one card
-      if (entry.bundle && entry.bundle.name) {
-        const key = entry.bundle.name;
+      // Bundle card — use bundle name + best image
+      if (bundle && bundle.name) {
+        const key = 'bundle_' + bundle.name;
         if (!seen.has(key)) {
           seen.add(key);
-          // Find the best image from bundle items
-          const bundleImg = entry.bundle.image ||
-            entryItems.find(i => i.images?.featured)?.images?.featured ||
-            entryItems.find(i => i.images?.icon)?.images?.icon || '';
+          const bundleImg = bundle.image
+            || entryItems.find(i => i.images?.featured)?.images?.featured
+            || entryItems.find(i => i.images?.icon)?.images?.icon || '';
           items.push({
-            name: entry.bundle.name,
+            name: bundle.name,
             type: 'Bundle',
             rarity: '',
-            description: entry.bundle.info || '',
+            description: bundle.info || '',
             image: bundleImg,
             price
           });
         }
-      } else {
-        // Individual items
-        for (const item of entryItems) {
-          const key = item.id || item.name;
-          if (!seen.has(key)) {
-            seen.add(key);
-            items.push({
-              name: item.name || 'Unknown',
-              type: item.type?.value || 'Cosmetic',
-              rarity: item.rarity?.value || '',
-              description: item.description || '',
-              image: item.images?.featured || item.images?.icon || item.images?.smallIcon || '',
-              price
-            });
-          }
+      }
+
+      // Always also add individual items (even in bundles)
+      for (const item of entryItems) {
+        const key = item.id || item.name;
+        if (key && !seen.has(key)) {
+          seen.add(key);
+          const type = item.type?.value || 'Cosmetic';
+          // Skip generic/placeholder items
+          if (!item.name || item.name.startsWith('TBD') || item.name === 'Random') continue;
+          items.push({
+            name: item.name,
+            type,
+            rarity: item.rarity?.value || '',
+            description: item.description || '',
+            image: item.images?.featured || item.images?.icon || item.images?.smallIcon || '',
+            price: bundle ? 0 : price  // 0 price for bundle sub-items
+          });
         }
       }
     }
 
+    // Remove bundle sub-items with 0 price if they appear in a bundle card already
+    const bundleNames = new Set(items.filter(i=>i.type==='Bundle').map(i=>i.name));
+    const finalItems = items.filter(i => !(i.price === 0 && i.type !== 'Bundle'));
+
     const data = {
       updated: now.toISOString().slice(0,16).replace('T',' ') + ' UTC',
       date: now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
-      count: items.length,
-      items
+      count: finalItems.length,
+      items: finalItems
     };
 
     return new Response(JSON.stringify(data), {
