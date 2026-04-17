@@ -345,57 +345,54 @@ function setFilter(f,btn){
   renderCards();
 }
 
-function renderCards(){
-  const grid=document.getElementById('shop-grid');
-  const filtered=activeFilter==='all'?allItems:allItems.filter(i=>{
-    const t=(i.type||'').toLowerCase();
-    return t.includes(activeFilter.toLowerCase());
-  });
-  if(!filtered.length){
-    grid.innerHTML='<div class="no-results">No items found for this filter.</div>';
-    return;
-  }
-  grid.innerHTML=filtered.map(item=>{
-    const img=item.image||'';
-    const type=item.type||'Cosmetic';
-    const rarity=item.rarity||'';
-    const desc=item.description||'Available in today\'s Fortnite item shop.';
-    const price=item.price||0;
-    return `<div class="shop-card">
-      ${img
-        ?`<img class="shop-card-img" src="${img}" alt="${item.name}" loading="lazy" onerror="this.style.display='none'">`
-        :`<div class="shop-card-img-placeholder">No image</div>`
-      }
-      <div class="shop-card-body">
-        <span class="shop-type-badge ${badgeClass(type)}">${type}</span>
-        <div class="shop-card-name">${item.name}</div>
-        <div class="shop-card-desc">${desc}</div>
-        <div class="shop-card-meta">
-          <span class="shop-rarity" style="color:${rarityColor(rarity)}">${rarity||'Special'}</span>
-          ${price?`<span class="shop-price">${price.toLocaleString()} V-Bucks</span>`:''}
-        </div>
-      </div>
-    </div>`;
-  }).join('');
+function cardHTML(item){
+  const img=item.image||'';
+  const type=item.type||'Cosmetic';
+  const rarity=item.rarity||'';
+  const desc=item.description||"Available in today's Fortnite item shop.";
+  const price=item.price||0;
+  return '<div class="shop-card">'
+    +(img?'<img class="shop-card-img" src="'+img+'" alt="'+item.name+'" loading="lazy" onerror="this.style.display='none'">'
+        :'<div class="shop-card-img-placeholder">No image</div>')
+    +'<div class="shop-card-body">'
+    +'<span class="shop-type-badge '+badgeClass(type)+'">'+type+'</span>'
+    +'<div class="shop-card-name">'+item.name+'</div>'
+    +'<div class="shop-card-desc">'+desc+'</div>'
+    +'<div class="shop-card-meta">'
+    +'<span class="shop-rarity" style="color:'+rarityColor(rarity)+'">'+( rarity||'Special')+'</span>'
+    +(price?'<span class="shop-price">'+price.toLocaleString()+' V-Bucks</span>':'')
+    +'</div></div></div>';
 }
 
-function showSkeletons(){
-  document.getElementById('shop-grid').innerHTML=Array(8).fill(0).map(()=>`
-    <div class="shop-skeleton">
-      <div class="skel-img"></div>
-      <div class="skel-body">
-        <div class="skel-line s"></div>
-        <div class="skel-line m"></div>
-        <div class="skel-line"></div>
-        <div class="skel-line m"></div>
-      </div>
-    </div>`).join('');
+function renderCards(){
+  const grid=document.getElementById('shop-grid');
+  if(activeFilter!=='all'){
+    const filtered=allItems.filter(i=>(i.type||'').toLowerCase().includes(activeFilter.toLowerCase()));
+    if(!filtered.length){grid.innerHTML='<div class="no-results">No items found for this filter.</div>';return;}
+    grid.innerHTML=filtered.map(cardHTML).join('');
+    return;
+  }
+  const order=['Bundle','Outfit','Back Bling','Pickaxe','Glider','Emote','Wrap','Spray','Contrail','Toy','Loading Screen','Music'];
+  const groups={};
+  for(const item of allItems){const t=item.type||'Other';if(!groups[t])groups[t]=[];groups[t].push(item);}
+  const sorted=[...order.filter(t=>groups[t]),...Object.keys(groups).filter(t=>!order.includes(t)&&groups[t])];
+  let html='';
+  for(const type of sorted){
+    const items=groups[type];
+    html+='<div style="grid-column:1/-1;margin-top:2.5rem;margin-bottom:.8rem;display:flex;align-items:center;gap:1rem;border-bottom:.5px solid var(--border);padding-bottom:.8rem">'
+      +'<h3 style="font-family:Syne,sans-serif;font-size:1.1rem;font-weight:700;color:var(--text)">'+type+'s</h3>'
+      +'<span style="font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)">'+items.length+' item'+(items.length>1?'s':'')+'</span>'
+      +'</div>';
+    html+=items.map(cardHTML).join('');
+  }
+  grid.innerHTML=html||'<div class="no-results">No items today.</div>';
 }
+
 
 async function loadShop(){
   showSkeletons();
   try{
-    const r=await fetch('/api/shop?t='+Date.now());
+    const r=await fetch('/leaks.json?t='+Date.now());
     if(!r.ok)throw new Error('Not found');
     const d=await r.json();
     allItems=d.items||[];
