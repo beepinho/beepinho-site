@@ -1,1 +1,7 @@
-{}
+{
+  "functions": {
+    "api/shop.js": {
+      "runtime": "nodejs20.x"
+    }
+  }
+}
