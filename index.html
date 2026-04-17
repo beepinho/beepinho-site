@@ -363,7 +363,7 @@ function cardHTML(item){
     +'<div class="shop-card-name">'+(item.name||'')+'</div>'
     +'<div class="shop-card-desc">'+desc+'</div>'
     +'<div class="shop-card-meta">'
-    +'<span class="shop-rarity" style="color:'+rarityColor(rarity)+'">'+(rarity||'Special')+'</span>'
+    +(rarity?'<span class="shop-rarity" style="color:'+rarityColor(rarity)+'">'+rarity+'</span>':'')
     +(price?'<span class="shop-price">'+price.toLocaleString()+' V-Bucks</span>':'')
     +'</div></div></div>';
 }
