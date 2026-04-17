@@ -12,29 +12,45 @@ export default async function handler(req) {
     const entries = raw?.data?.entries || [];
     const now = new Date();
     const items = [];
+    const seen = new Set();
 
     for (const entry of entries) {
       const price = entry.finalPrice || 0;
-      const bundle = entry.bundle;
-      if (bundle) {
-        items.push({
-          name: bundle.name || 'Bundle',
-          type: 'Bundle',
-          rarity: entry.items?.[0]?.rarity?.value || '',
-          description: bundle.info || '',
-          image: bundle.image || '',
-          price
-        });
-      } else {
-        for (const item of (entry.items || [])) {
+      const entryItems = entry.items || [];
+
+      // If it's a bundle with multiple items, use the bundle as one card
+      if (entry.bundle && entry.bundle.name) {
+        const key = entry.bundle.name;
+        if (!seen.has(key)) {
+          seen.add(key);
+          // Find the best image from bundle items
+          const bundleImg = entry.bundle.image ||
+            entryItems.find(i => i.images?.featured)?.images?.featured ||
+            entryItems.find(i => i.images?.icon)?.images?.icon || '';
           items.push({
-            name: item.name || 'Unknown',
-            type: item.type?.value || 'Cosmetic',
-            rarity: item.rarity?.value || '',
-            description: item.description || '',
-            image: item.images?.icon || item.images?.smallIcon || '',
+            name: entry.bundle.name,
+            type: 'Bundle',
+            rarity: '',
+            description: entry.bundle.info || '',
+            image: bundleImg,
             price
           });
+        }
+      } else {
+        // Individual items
+        for (const item of entryItems) {
+          const key = item.id || item.name;
+          if (!seen.has(key)) {
+            seen.add(key);
+            items.push({
+              name: item.name || 'Unknown',
+              type: item.type?.value || 'Cosmetic',
+              rarity: item.rarity?.value || '',
+              description: item.description || '',
+              image: item.images?.featured || item.images?.icon || item.images?.smallIcon || '',
+              price
+            });
+          }
         }
       }
     }
