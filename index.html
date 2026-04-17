@@ -79,6 +79,9 @@ section{padding:8rem 3rem}
 .live-dot{width:6px;height:6px;border-radius:50%;background:#00ff88;animation:blink 2s ease-in-out infinite;flex-shrink:0}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 .last-updated{font-size:.7rem;color:var(--muted)}
+.filter-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem}
+.filter-btn{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:transparent;border:.5px solid var(--border);padding:.35rem .9rem;border-radius:100px;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s;white-space:nowrap}
+.filter-btn.active,.filter-btn:hover{color:var(--gold);border-color:rgba(245,197,24,.5);background:rgba(245,197,24,.06)}
 .shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem}
 .shop-card{background:var(--bg3);border:.5px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color .3s,transform .3s var(--ease);cursor:pointer}
 .shop-card:hover{border-color:rgba(245,197,24,.4);transform:translateY(-4px)}
@@ -230,10 +233,10 @@ footer{border-top:.5px solid var(--border);padding:2rem 3rem;display:flex;align-
         </div>
       </div>
     </div>
-    <div class="shop-grid reveal d1" id="shop-grid"></div>
+    <div class="filter-row reveal d1" id="filter-row"></div>
+    <div class="shop-grid reveal d2" id="shop-grid"></div>
   </div>
 </section>
-
 <section id="links" class="links-section">
   <div class="inner">
     <div class="reveal"><p class="eyebrow">Find me online</p><h2 class="big-title">Links</h2></div>
@@ -298,6 +301,8 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>40));
 
 let allItems=[];
+let activeFilter='all';
+const TYPE_LABELS={'Outfit':'Skins','Emote':'Emotes','Back Bling':'Back Blings','Pickaxe':'Pickaxes','Glider':'Gliders','Wrap':'Wraps','Bundle':'Bundles','Spray':'Sprays','Contrail':'Contrails','Toy':'Toys'};
 
 function rarityColor(r){
   const v=(r||'').toLowerCase();
@@ -308,6 +313,22 @@ function rarityColor(r){
   return null;
 }
 
+function buildFilters(){
+  const types=[...new Set(allItems.map(i=>i.type).filter(Boolean))];
+  const order=['Outfit','Back Bling','Pickaxe','Glider','Emote','Wrap','Bundle','Spray','Contrail','Toy'];
+  const sorted=[...order.filter(t=>types.includes(t)),...types.filter(t=>!order.includes(t))];
+  const row=document.getElementById('filter-row');
+  row.innerHTML='<button class="filter-btn active" onclick="setFilter('all',this)">All ('+allItems.length+')</button>'
+    +sorted.map(t=>'<button class="filter-btn" onclick="setFilter(''+t+'',this)">'+(TYPE_LABELS[t]||t+'s')+' ('+allItems.filter(i=>i.type===t).length+')</button>').join('');
+}
+
+function setFilter(f,btn){
+  activeFilter=f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCards();
+}
+
 function cardHTML(item){
   const img=item.image||'';
   const rarity=item.rarity||'';
@@ -315,9 +336,8 @@ function cardHTML(item){
   const rc=rarityColor(rarity);
   const safeName=(item.name||'').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   return '<div class="shop-card">'
-    +(img
-      ?'<img class="shop-card-img" src="'+img+'" alt="'+safeName+'" loading="lazy" onerror="this.style.display=\'none\'">'
-      :'<div class="shop-card-img-placeholder">No image</div>')
+    +(img?'<img class="shop-card-img" src="'+img+'" alt="'+safeName+'" loading="lazy" onerror="this.style.display=\'none\'">'
+        :'<div class="shop-card-img-placeholder">No image</div>')
     +'<div class="shop-card-body">'
     +'<div class="shop-card-name">'+(item.name||'')+'</div>'
     +(price?'<div class="shop-price-row"><span class="vbucks-icon">V</span><span class="shop-price">'+price.toLocaleString()+'</span></div>':'')
@@ -333,8 +353,9 @@ function showSkeletons(){
 
 function renderCards(){
   const grid=document.getElementById('shop-grid');
-  if(!allItems.length){grid.innerHTML='<div class="no-results">No items today.</div>';return;}
-  grid.innerHTML=allItems.map(cardHTML).join('');
+  const filtered=activeFilter==='all'?allItems:allItems.filter(i=>i.type===activeFilter);
+  if(!filtered.length){grid.innerHTML='<div class="no-results">No items for this filter.</div>';return;}
+  grid.innerHTML=filtered.map(cardHTML).join('');
 }
 
 async function loadShop(){
@@ -345,6 +366,7 @@ async function loadShop(){
     const d=await r.json();
     allItems=d.items||[];
     if(!allItems.length)throw new Error('Empty');
+    buildFilters();
     renderCards();
     document.getElementById('shop-date').textContent="Today's shop — "+(d.date||'');
     document.getElementById('last-updated').textContent='Updated '+(d.updated||'');
