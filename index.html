@@ -82,28 +82,31 @@ section{padding:8rem 3rem}
 .filter-row{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:2.5rem}
 .filter-btn{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);background:transparent;border:.5px solid var(--border);padding:.4rem 1rem;border-radius:100px;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s}
 .filter-btn.active,.filter-btn:hover{color:var(--gold);border-color:rgba(245,197,24,.5);background:rgba(245,197,24,.05)}
-.shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem}
+.shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.5rem}
+.section-header{grid-column:1/-1;margin-top:2.5rem;margin-bottom:.5rem;display:flex;align-items:center;gap:1rem;border-bottom:.5px solid var(--border);padding-bottom:.8rem}
+.section-header h3{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;color:var(--text)}
+.section-header span{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
 .shop-card{background:var(--bg3);border:.5px solid var(--border);border-radius:16px;overflow:hidden;transition:border-color .3s,transform .4s var(--ease)}
 .shop-card:hover{border-color:rgba(245,197,24,.25);transform:translateY(-4px)}
 .shop-card-img{width:100%;aspect-ratio:1;object-fit:contain;background:var(--bg4);padding:1rem;display:block}
 .shop-card-img-placeholder{width:100%;aspect-ratio:1;background:var(--bg4);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase}
-.shop-card-body{padding:1.4rem}
-.shop-type-badge{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;padding:.22rem .6rem;border-radius:100px;display:inline-block;margin-bottom:.8rem;font-weight:500}
+.shop-card-body{padding:1.2rem}
+.shop-type-badge{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;padding:.22rem .6rem;border-radius:100px;display:inline-block;margin-bottom:.7rem;font-weight:500}
 .badge-outfit{background:rgba(168,85,247,.15);color:#c084fc;border:.5px solid rgba(168,85,247,.3)}
 .badge-emote,.badge-dance{background:rgba(59,130,246,.15);color:#60a5fa;border:.5px solid rgba(59,130,246,.3)}
 .badge-pickaxe,.badge-harvestingtool{background:rgba(34,197,94,.15);color:#4ade80;border:.5px solid rgba(34,197,94,.3)}
 .badge-wrap{background:rgba(249,115,22,.15);color:#fb923c;border:.5px solid rgba(249,115,22,.3)}
 .badge-glider{background:rgba(20,184,166,.15);color:#2dd4bf;border:.5px solid rgba(20,184,166,.3)}
 .badge-bundle,.badge-backpack,.badge-back{background:rgba(245,197,24,.1);color:var(--gold);border:.5px solid rgba(245,197,24,.3)}
-.shop-card-name{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:.5rem;line-height:1.2}
-.shop-card-desc{font-size:.83rem;color:var(--muted);line-height:1.65;font-weight:300;margin-bottom:1rem}
+.shop-card-name{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.4rem;line-height:1.2}
+.shop-card-desc{font-size:.82rem;color:var(--muted);line-height:1.6;font-weight:300;margin-bottom:.9rem}
 .shop-card-meta{display:flex;align-items:center;justify-content:space-between}
-.shop-rarity{font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
-.shop-price{font-size:.78rem;color:var(--gold);font-weight:500;font-family:'Syne',sans-serif}
+.shop-rarity{font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
+.shop-price{font-size:.78rem;color:var(--gold);font-weight:600;font-family:'Syne',sans-serif}
 .shop-skeleton{background:var(--bg3);border:.5px solid var(--border);border-radius:16px;overflow:hidden;animation:shimmer 1.5s ease-in-out infinite}
 @keyframes shimmer{0%,100%{opacity:.4}50%{opacity:.8}}
 .skel-img{width:100%;aspect-ratio:1;background:var(--bg4)}
-.skel-body{padding:1.4rem;display:flex;flex-direction:column;gap:.8rem}
+.skel-body{padding:1.2rem;display:flex;flex-direction:column;gap:.8rem}
 .skel-line{height:11px;background:var(--bg4);border-radius:4px}
 .skel-line.s{width:35%}.skel-line.m{width:60%}
 .no-results{text-align:center;padding:4rem 2rem;color:var(--muted);font-size:.9rem;grid-column:1/-1;line-height:1.7}
@@ -136,7 +139,7 @@ footer{border-top:.5px solid var(--border);padding:2rem 3rem;display:flex;align-
 @media(max-width:768px){
   nav{padding:1rem 1.5rem}.nav-links{gap:1.2rem}
   section{padding:5rem 1.5rem}
-  .about-grid,.island-grid{grid-template-columns:1fr;gap:2.5rem}
+  .about-grid,.island-grid{grid-column:1fr;gap:2.5rem}
   .stats{grid-template-columns:1fr 1fr}
   .links-grid{grid-template-columns:1fr}
   .hero h1{font-size:clamp(3.5rem,16vw,6rem)}
@@ -351,59 +354,67 @@ function cardHTML(item){
   const rarity=item.rarity||'';
   const desc=item.description||"Available in today's Fortnite item shop.";
   const price=item.price||0;
+  const safeName=(item.name||'').replace(/"/g,'&quot;');
   return '<div class="shop-card">'
-    +(img?'<img class="shop-card-img" src="'+img+'" alt="'+item.name+'" loading="lazy" onerror="this.style.display='none'">'
+    +(img?'<img class="shop-card-img" src="'+img+'" alt="'+safeName+'" loading="lazy" onerror="this.parentElement.querySelector(\'.shop-card-img\').style.display=\'none\'">'
         :'<div class="shop-card-img-placeholder">No image</div>')
     +'<div class="shop-card-body">'
     +'<span class="shop-type-badge '+badgeClass(type)+'">'+type+'</span>'
-    +'<div class="shop-card-name">'+item.name+'</div>'
+    +'<div class="shop-card-name">'+(item.name||'')+'</div>'
     +'<div class="shop-card-desc">'+desc+'</div>'
     +'<div class="shop-card-meta">'
-    +'<span class="shop-rarity" style="color:'+rarityColor(rarity)+'">'+( rarity||'Special')+'</span>'
+    +'<span class="shop-rarity" style="color:'+rarityColor(rarity)+'">'+(rarity||'Special')+'</span>'
     +(price?'<span class="shop-price">'+price.toLocaleString()+' V-Bucks</span>':'')
     +'</div></div></div>';
+}
+
+function showSkeletons(){
+  document.getElementById('shop-grid').innerHTML=Array(8).fill(0).map(()=>
+    '<div class="shop-skeleton"><div class="skel-img"></div><div class="skel-body"><div class="skel-line s"></div><div class="skel-line m"></div><div class="skel-line"></div></div></div>'
+  ).join('');
 }
 
 function renderCards(){
   const grid=document.getElementById('shop-grid');
   if(activeFilter!=='all'){
     const filtered=allItems.filter(i=>(i.type||'').toLowerCase().includes(activeFilter.toLowerCase()));
-    if(!filtered.length){grid.innerHTML='<div class="no-results">No items found for this filter.</div>';return;}
+    if(!filtered.length){grid.innerHTML='<div class="no-results">No '+activeFilter+' items in today\'s shop.</div>';return;}
     grid.innerHTML=filtered.map(cardHTML).join('');
     return;
   }
   const order=['Bundle','Outfit','Back Bling','Pickaxe','Glider','Emote','Wrap','Spray','Contrail','Toy','Loading Screen','Music'];
   const groups={};
-  for(const item of allItems){const t=item.type||'Other';if(!groups[t])groups[t]=[];groups[t].push(item);}
+  for(const item of allItems){
+    const t=item.type||'Other';
+    if(!groups[t])groups[t]=[];
+    groups[t].push(item);
+  }
   const sorted=[...order.filter(t=>groups[t]),...Object.keys(groups).filter(t=>!order.includes(t)&&groups[t])];
   let html='';
   for(const type of sorted){
     const items=groups[type];
-    html+='<div style="grid-column:1/-1;margin-top:2.5rem;margin-bottom:.8rem;display:flex;align-items:center;gap:1rem;border-bottom:.5px solid var(--border);padding-bottom:.8rem">'
-      +'<h3 style="font-family:Syne,sans-serif;font-size:1.1rem;font-weight:700;color:var(--text)">'+type+'s</h3>'
-      +'<span style="font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)">'+items.length+' item'+(items.length>1?'s':'')+'</span>'
-      +'</div>';
+    const label=type==='Outfit'?'Skins':type+'s';
+    html+='<div class="section-header"><h3>'+label+'</h3><span>'+items.length+' item'+(items.length>1?'s':'')+'</span></div>';
     html+=items.map(cardHTML).join('');
   }
   grid.innerHTML=html||'<div class="no-results">No items today.</div>';
 }
 
-
 async function loadShop(){
   showSkeletons();
   try{
-    const r=await fetch('/leaks.json?t='+Date.now());
-    if(!r.ok)throw new Error('Not found');
+    const r=await fetch('/api/shop?t='+Date.now());
+    if(!r.ok)throw new Error('API error');
     const d=await r.json();
     allItems=d.items||[];
     if(!allItems.length)throw new Error('Empty');
     renderCards();
-    document.getElementById('shop-date').textContent="Today's shop — "+d.date;
-    document.getElementById('last-updated').textContent='Updated '+d.updated;
+    document.getElementById('shop-date').textContent="Today's shop — "+(d.date||'');
+    document.getElementById('last-updated').textContent='Updated '+(d.updated||'');
   }catch(e){
-    document.getElementById('shop-grid').innerHTML='<div class="no-results">Shop data loading... Check back soon! 🐝</div>';
+    document.getElementById('shop-grid').innerHTML='<div class="no-results">Shop loading... Check back soon! 🐝</div>';
     document.getElementById('shop-date').textContent="Today's Fortnite Item Shop";
-    document.getElementById('last-updated').textContent='Coming soon';
+    document.getElementById('last-updated').textContent='Loading...';
   }
 }
 
