@@ -96,7 +96,7 @@ section{padding:8rem 3rem}
 .badge-pickaxe,.badge-harvestingtool{background:rgba(34,197,94,.15);color:#4ade80;border:.5px solid rgba(34,197,94,.3)}
 .badge-wrap{background:rgba(249,115,22,.15);color:#fb923c;border:.5px solid rgba(249,115,22,.3)}
 .badge-glider{background:rgba(20,184,166,.15);color:#2dd4bf;border:.5px solid rgba(20,184,166,.3)}
-.badge-new,.badge-unknown{background:rgba(245,197,24,.1);color:var(--gold);border:.5px solid rgba(245,197,24,.3)}
+.badge-new,.badge-unknown,.badge-bundle,.badge-cosmetic{background:rgba(245,197,24,.1);color:var(--gold);border:.5px solid rgba(245,197,24,.3)}
 .leak-card-name{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:.5rem;line-height:1.2}
 .leak-card-ai{font-size:.83rem;color:var(--muted);line-height:1.65;font-weight:300;margin-bottom:1rem}
 .leak-card-meta{display:flex;align-items:center;justify-content:space-between}
@@ -108,7 +108,7 @@ section{padding:8rem 3rem}
 .skel-body{padding:1.4rem;display:flex;flex-direction:column;gap:.8rem}
 .skel-line{height:11px;background:var(--bg4);border-radius:4px}
 .skel-line.s{width:35%}.skel-line.m{width:60%}
-.no-results{text-align:center;padding:4rem 2rem;color:var(--muted);font-size:.9rem;grid-column:1/-1}
+.no-results{text-align:center;padding:4rem 2rem;color:var(--muted);font-size:.9rem;grid-column:1/-1;line-height:1.7}
 .links-section{background:var(--bg2);border-top:.5px solid var(--border);border-bottom:.5px solid var(--border)}
 .links-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:.5px solid var(--border);border-radius:16px;overflow:hidden;margin-top:3rem}
 .link-item{background:var(--bg2);padding:2rem;text-decoration:none;display:flex;justify-content:space-between;align-items:center;transition:background .3s}
@@ -212,10 +212,7 @@ footer{border-top:.5px solid var(--border);padding:2rem 3rem;display:flex;align-
   <div class="inner">
     <div class="reveal"><p class="eyebrow">Featured island</p><h2 class="big-title">Latest creation</h2></div>
     <div class="island-grid">
-      <div class="island-img reveal">
-        <!-- Replace this comment with: <img src="images/island.jpg" alt="ASHTVN"> -->
-        Island screenshot goes here
-      </div>
+      <div class="island-img reveal">Island screenshot goes here</div>
       <div class="reveal d1">
         <p class="island-meta">Ashy's Party Royale</p>
         <h3 class="island-title">ASHTVN</h3>
@@ -233,26 +230,25 @@ footer{border-top:.5px solid var(--border);padding:2rem 3rem;display:flex;align-
 <section class="leak-section" id="leaks">
   <div class="inner">
     <div class="reveal">
-      <p class="eyebrow">Powered by AI · Updates every hour</p>
+      <p class="eyebrow">Powered by AI · Updated by Beepinho</p>
       <div class="leak-header">
         <div>
           <h2 class="big-title" style="margin-bottom:.5rem">Fortnite Leaks</h2>
-          <p style="font-size:.95rem;color:var(--muted);font-weight:300;max-width:500px">New unreleased cosmetics straight from the Fortnite API — written up by AI the moment they appear.</p>
+          <p style="font-size:.95rem;color:var(--muted);font-weight:300;max-width:500px">Unreleased cosmetics straight from the game files — written up by AI.</p>
         </div>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.8rem">
           <div class="live-badge"><span class="live-dot"></span>Live feed</div>
           <div class="last-updated" id="last-updated">Loading...</div>
-          <button class="refresh-btn" id="refresh-btn" onclick="loadLeaks()">↻ Refresh</button>
         </div>
       </div>
     </div>
     <div class="filter-row reveal d1">
       <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
-      <button class="filter-btn" onclick="setFilter('outfit',this)">Skins</button>
-      <button class="filter-btn" onclick="setFilter('emote',this)">Emotes</button>
-      <button class="filter-btn" onclick="setFilter('pickaxe',this)">Pickaxes</button>
-      <button class="filter-btn" onclick="setFilter('glider',this)">Gliders</button>
-      <button class="filter-btn" onclick="setFilter('wrap',this)">Wraps</button>
+      <button class="filter-btn" onclick="setFilter('Outfit',this)">Skins</button>
+      <button class="filter-btn" onclick="setFilter('Emote',this)">Emotes</button>
+      <button class="filter-btn" onclick="setFilter('Pickaxe',this)">Pickaxes</button>
+      <button class="filter-btn" onclick="setFilter('Glider',this)">Gliders</button>
+      <button class="filter-btn" onclick="setFilter('Wrap',this)">Wraps</button>
     </div>
     <div class="leak-grid" id="leak-grid"></div>
   </div>
@@ -324,8 +320,6 @@ window.addEventListener('scroll',()=>document.getElementById('nav').classList.to
 let allItems=[];
 let activeFilter='all';
 
-const ANTHROPIC_API_KEY=window.ANTHROPIC_KEY||'';
-
 function badgeClass(type){
   const t=(type||'').toLowerCase().replace(/\s/g,'');
   if(t.includes('outfit'))return 'badge-outfit';
@@ -335,15 +329,7 @@ function badgeClass(type){
   if(t.includes('glider'))return 'badge-glider';
   return 'badge-new';
 }
-function badgeLabel(type){
-  const t=(type||'').toLowerCase();
-  if(t.includes('outfit'))return 'Skin';
-  if(t.includes('emote')||t.includes('dance'))return 'Emote';
-  if(t.includes('pickaxe')||t.includes('harvesting'))return 'Pickaxe';
-  if(t.includes('wrap'))return 'Wrap';
-  if(t.includes('glider'))return 'Glider';
-  return type||'New';
-}
+
 function rarityColor(r){
   const v=(r||'').toLowerCase();
   if(v.includes('legendary'))return '#f5a623';
@@ -351,6 +337,47 @@ function rarityColor(r){
   if(v.includes('rare'))return '#3498db';
   if(v.includes('uncommon'))return '#2ecc71';
   return 'var(--muted)';
+}
+
+function setFilter(f,btn){
+  activeFilter=f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCards();
+}
+
+function renderCards(){
+  const grid=document.getElementById('leak-grid');
+  const filtered=activeFilter==='all'?allItems:allItems.filter(i=>{
+    const t=(i.type||'').toLowerCase();
+    return t.includes(activeFilter.toLowerCase());
+  });
+  if(!filtered.length){
+    grid.innerHTML='<div class="no-results">No items found for this filter.</div>';
+    return;
+  }
+  grid.innerHTML=filtered.map(item=>{
+    const img=item.image||'';
+    const type=item.type||'New';
+    const rarity=item.rarity||'';
+    const desc=item.description||'A brand new unreleased Fortnite cosmetic.';
+    const ver=item.version||'Latest';
+    return `<div class="leak-card">
+      ${img
+        ?`<img class="leak-card-img" src="${img}" alt="${item.name}" loading="lazy" onerror="this.style.display='none'">`
+        :`<div class="leak-card-img-placeholder">No image</div>`
+      }
+      <div class="leak-card-body">
+        <span class="leak-type-badge ${badgeClass(type)}">${type}</span>
+        <div class="leak-card-name">${item.name}</div>
+        <div class="leak-card-ai">${desc}</div>
+        <div class="leak-card-meta">
+          <span class="leak-rarity" style="color:${rarityColor(rarity)}">${rarity||'Unknown'}</span>
+          <span class="leak-time">v${ver}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 function showSkeletons(){
@@ -366,103 +393,21 @@ function showSkeletons(){
     </div>`).join('');
 }
 
-function setFilter(f,btn){
-  activeFilter=f;
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderCards();
-}
-
-function renderCards(){
-  const grid=document.getElementById('leak-grid');
-  const filtered=activeFilter==='all'?allItems:allItems.filter(i=>{
-    const t=(i.type?.value||'').toLowerCase();
-    if(activeFilter==='outfit')return t.includes('outfit');
-    if(activeFilter==='emote')return t.includes('emote')||t.includes('dance');
-    if(activeFilter==='pickaxe')return t.includes('pickaxe')||t.includes('harvesting');
-    if(activeFilter==='glider')return t.includes('glider');
-    if(activeFilter==='wrap')return t.includes('wrap');
-    return true;
-  });
-  if(!filtered.length){
-    grid.innerHTML='<div class="no-results">No items found for this filter.</div>';
-    return;
-  }
-  grid.innerHTML=filtered.map(item=>{
-    const img=item.images?.icon||item.images?.smallIcon||'';
-    const type=item.type?.value||'New';
-    const rarity=item.rarity?.value||'';
-    const desc=item.aiDescription||item.description||'A brand new Fortnite cosmetic just spotted in the API files.';
-    const ver=item.introduced?.versionString||'Latest patch';
-    return `<div class="leak-card">
-      ${img
-        ?`<img class="leak-card-img" src="${img}" alt="${item.name}" loading="lazy">`
-        :`<div class="leak-card-img-placeholder">No image</div>`
-      }
-      <div class="leak-card-body">
-        <span class="leak-type-badge ${badgeClass(type)}">${badgeLabel(type)}</span>
-        <div class="leak-card-name">${item.name}</div>
-        <div class="leak-card-ai">${desc}</div>
-        <div class="leak-card-meta">
-          <span class="leak-rarity" style="color:${rarityColor(rarity)}">${rarity||'Unknown'}</span>
-          <span class="leak-time">v${ver}</span>
-        </div>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-async function generateAIDescriptions(items){
-  if(!ANTHROPIC_API_KEY||ANTHROPIC_API_KEY==='YOUR_API_KEY_HERE')return items;
-  const names=items.slice(0,15).map((i,idx)=>`${idx+1}. ${i.name} (${i.type?.value||'cosmetic'}, ${i.rarity?.value||'unknown'}): ${i.description||'no description'}`).join('\n');
-  try{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
-        messages:[{role:'user',content:`You are a hyped Fortnite leaker like Hypex. Write a short 1-2 sentence hype description for each of these new unreleased Fortnite cosmetics. Be enthusiastic and speculate on collabs or themes where relevant. Format: just the number and description, one per line.\n\n${names}`}]
-      })
-    });
-    const d=await r.json();
-    const text=d.content?.find(b=>b.type==='text')?.text||'';
-    text.split('\n').filter(l=>l.trim()&&/^\d+\./.test(l.trim())).forEach((line,idx)=>{
-      if(items[idx])items[idx].aiDescription=line.replace(/^\d+\.\s*/,'').trim();
-    });
-  }catch(e){console.log('AI descriptions unavailable');}
-  return items;
-}
-
 async function loadLeaks(){
-  const btn=document.getElementById('refresh-btn');
-  btn.textContent='↻ Refreshing...';
-  btn.style.color='var(--gold)';
-  document.getElementById('last-updated').textContent='Checking API...';
   showSkeletons();
+  document.getElementById('last-updated').textContent='Loading...';
   try{
-    const r=await fetch('https://api.allorigins.win/raw?url='+encodeURIComponent('https://fortnite-api.com/v2/cosmetics/new'));
-    if(!r.ok)throw new Error('API error');
+    const r=await fetch('/leaks.json?t='+Date.now());
+    if(!r.ok)throw new Error('Not found');
     const d=await r.json();
-    let items=[];
-    if(d.data){
-      ['br','tracks','instruments','cars','lego','legoKits','beans'].forEach(cat=>{
-        if(d.data[cat]&&Array.isArray(d.data[cat]))items.push(...d.data[cat]);
-      });
-    }
-    if(!items.length)throw new Error('No items');
-    items=items.slice(0,24);
-    items=await generateAIDescriptions(items);
-    allItems=items;
+    allItems=d.items||[];
+    if(!allItems.length)throw new Error('No items');
     renderCards();
-    const now=new Date();
-    document.getElementById('last-updated').textContent=`Updated ${now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}`;
+    document.getElementById('last-updated').textContent='Updated '+d.updated;
   }catch(e){
-    document.getElementById('leak-grid').innerHTML='<div class="no-results">Could not load leaks right now. Try refreshing in a moment.</div>';
-    document.getElementById('last-updated').textContent='Failed — try again';
+    document.getElementById('leak-grid').innerHTML='<div class="no-results">No leaks yet — Beepinho will push new leaks after the next Fortnite update! Check back soon 🐝</div>';
+    document.getElementById('last-updated').textContent='Waiting for next update';
   }
-  btn.textContent='↻ Refresh';
-  btn.style.color='';
 }
 
 function sendForm(e){
@@ -473,7 +418,6 @@ function sendForm(e){
 }
 
 loadLeaks();
-setInterval(loadLeaks,3600000);
 </script>
 </body>
 </html>
