@@ -1,5 +1,5 @@
 {
-  "updated": "2026-04-17 12:13 UTC",
+  "updated": "2026-04-17 14:28 UTC",
   "mode": "leaks",
   "count": 24,
   "items": [
@@ -40,182 +40,182 @@
       "price": 0
     },
     {
-      "name": "Cazadora Wings",
+      "name": "Metal Gear Mk. II",
       "type": "backpack",
-      "rarity": "epic",
-      "description": "The hunt is always with you.",
-      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_agentsherbert/icon.png",
+      "rarity": "gaminglegends",
+      "description": "Backs you up on the battlefield.",
+      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_abstractmirror/icon.png",
       "version": "Latest",
       "price": 0
     },
     {
-      "name": "Undertow",
-      "type": "backpack",
-      "rarity": "epic",
-      "description": "The sea hungers for those who dare cross it.",
-      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_agentxkoi/icon.png",
-      "version": "Latest",
-      "price": 0
-    },
-    {
-      "name": "Arc Counter",
-      "type": "backpack",
-      "rarity": "marvel",
-      "description": "Proof that Tony Stark has a backbling.",
-      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_agilerug/icon.png",
-      "version": "Latest",
-      "price": 0
-    },
-    {
-      "name": "Flakey's Snowbag",
+      "name": "Lil Kraken",
       "type": "backpack",
       "rarity": "rare",
-      "description": "It's full of snow! And... nope, just snow.",
-      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_airkringle/icon.png",
+      "description": "Awww, he just woke up!",
+      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_accentwall/icon.png",
       "version": "Latest",
       "price": 0
     },
     {
-      "name": "Starbrite Pack",
-      "type": "backpack",
-      "rarity": "uncommon",
-      "description": "Stay brite.",
-      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_akimboenvoy/icon.png",
-      "version": "Latest",
-      "price": 0
-    },
-    {
-      "name": "Serpent's Eye",
+      "name": "Scorpius Ops Pack",
       "type": "backpack",
       "rarity": "rare",
-      "description": "Serpentine style with a venomous bite. ",
-      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_alchemy_bass/icon.png",
+      "description": "Ready for the perfect sting operation.",
+      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_agedchasm/icon.png",
       "version": "Latest",
       "price": 0
     },
     {
-      "name": "Potion Master",
+      "name": "Tekk Pack",
       "type": "backpack",
       "rarity": "rare",
-      "description": "Concoct a potent potion of mystical groves.",
-      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_alchemy_drum/icon.png",
+      "description": "Always ready for a comeback.",
+      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_agentaceheart/icon.png",
       "version": "Latest",
       "price": 0
     },
     {
-      "name": "Astral Eye",
+      "name": "Metal Gear Mk. II",
+      "type": "backpack",
+      "rarity": "gaminglegends",
+      "description": "Backs you up on the battlefield.",
+      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_abstractmirror/icon.png",
+      "version": "Latest",
+      "price": 0
+    },
+    {
+      "name": "Lil Kraken",
       "type": "backpack",
       "rarity": "rare",
-      "description": "A shimmering transcendent harbinger of tone. ",
-      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_alchemy_guitar/icon.png",
+      "description": "Awww, he just woke up!",
+      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_accentwall/icon.png",
       "version": "Latest",
       "price": 0
     },
     {
-      "name": "Jade Dragon Blade",
+      "name": "Scorpius Ops Pack",
       "type": "backpack",
       "rarity": "rare",
-      "description": "Hit a lucky streak.",
-      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_alchemy_keytar/icon.png",
+      "description": "Ready for the perfect sting operation.",
+      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_agedchasm/icon.png",
       "version": "Latest",
       "price": 0
     },
     {
-      "name": "Elix Vox",
+      "name": "Tekk Pack",
       "type": "backpack",
       "rarity": "rare",
-      "description": "Dominate with the ultimate vocal tonic. ",
-      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_alchemy_mic/icon.png",
+      "description": "Always ready for a comeback.",
+      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_agentaceheart/icon.png",
       "version": "Latest",
       "price": 0
     },
     {
-      "name": "Sommerset's Cat Kit",
+      "name": "Metal Gear Mk. II",
+      "type": "backpack",
+      "rarity": "gaminglegends",
+      "description": "Backs you up on the battlefield.",
+      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_abstractmirror/icon.png",
+      "version": "Latest",
+      "price": 0
+    },
+    {
+      "name": "Lil Kraken",
       "type": "backpack",
       "rarity": "rare",
-      "description": "Pounce with grace.",
-      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_alderoptic/icon.png",
+      "description": "Awww, he just woke up!",
+      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_accentwall/icon.png",
       "version": "Latest",
       "price": 0
     },
     {
-      "name": "Dark Grasp",
+      "name": "Scorpius Ops Pack",
       "type": "backpack",
       "rarity": "rare",
-      "description": "Clutching at a grave power.",
-      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_allknowing/icon.png",
+      "description": "Ready for the perfect sting operation.",
+      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_agedchasm/icon.png",
       "version": "Latest",
       "price": 0
     },
     {
-      "name": "That's Cold Jac!",
-      "type": "backpack",
-      "rarity": "icon",
-      "description": "The chillest hound in the pound.",
-      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_almondsplash/icon.png",
-      "version": "Latest",
-      "price": 0
-    },
-    {
-      "name": "Snoop's Holladizzle Bass",
-      "type": "backpack",
-      "rarity": "icon",
-      "description": "Play the rhythm of the season.",
-      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_almondsplash_bass/icon.png",
-      "version": "Latest",
-      "price": 0
-    },
-    {
-      "name": "Folly's Heartcase",
+      "name": "Tekk Pack",
       "type": "backpack",
       "rarity": "rare",
-      "description": "Hard-hearted and stylishly sharp.",
-      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_amour/icon.png",
+      "description": "Always ready for a comeback.",
+      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_agentaceheart/icon.png",
       "version": "Latest",
       "price": 0
     },
     {
-      "name": "Kodama's Hollow",
+      "name": "Metal Gear Mk. II",
+      "type": "backpack",
+      "rarity": "gaminglegends",
+      "description": "Backs you up on the battlefield.",
+      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_abstractmirror/icon.png",
+      "version": "Latest",
+      "price": 0
+    },
+    {
+      "name": "Lil Kraken",
       "type": "backpack",
       "rarity": "rare",
-      "description": "Don't bother the spirits... or else.",
-      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_ancientleer/icon.png",
+      "description": "Awww, he just woke up!",
+      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_accentwall/icon.png",
       "version": "Latest",
       "price": 0
     },
     {
-      "name": "Leaf Vocalist",
+      "name": "Scorpius Ops Pack",
       "type": "backpack",
       "rarity": "rare",
-      "description": "Your reputation is growing.",
-      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_ancientleer_mic/icon.png",
+      "description": "Ready for the perfect sting operation.",
+      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_agedchasm/icon.png",
       "version": "Latest",
       "price": 0
     },
     {
-      "name": "TBD",
+      "name": "Tekk Pack",
       "type": "backpack",
       "rarity": "rare",
-      "description": "TBD",
-      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_anglepatch_cape_npc/icon.png",
+      "description": "Always ready for a comeback.",
+      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_agentaceheart/icon.png",
       "version": "Latest",
       "price": 0
     },
     {
-      "name": "Doom's Cloak",
+      "name": "Metal Gear Mk. II",
       "type": "backpack",
-      "rarity": "marvel",
-      "description": "The mantle of Latverian royalty.",
-      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_anglepatch_lodge_cape/icon.png",
+      "rarity": "gaminglegends",
+      "description": "Backs you up on the battlefield.",
+      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_abstractmirror/icon.png",
       "version": "Latest",
       "price": 0
     },
     {
-      "name": "Shadow Hyotan",
+      "name": "Lil Kraken",
       "type": "backpack",
       "rarity": "rare",
-      "description": "A masked bottle of swirling shadows.",
-      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_anodizedmetal/icon.png",
+      "description": "Awww, he just woke up!",
+      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_accentwall/icon.png",
+      "version": "Latest",
+      "price": 0
+    },
+    {
+      "name": "Scorpius Ops Pack",
+      "type": "backpack",
+      "rarity": "rare",
+      "description": "Ready for the perfect sting operation.",
+      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_agedchasm/icon.png",
+      "version": "Latest",
+      "price": 0
+    },
+    {
+      "name": "Tekk Pack",
+      "type": "backpack",
+      "rarity": "rare",
+      "description": "Always ready for a comeback.",
+      "image": "https://fortnite-api.com/images/cosmetics/br/backpack_agentaceheart/icon.png",
       "version": "Latest",
       "price": 0
     }
