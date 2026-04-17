@@ -78,9 +78,6 @@ section{padding:8rem 3rem}
 .live-dot{width:6px;height:6px;border-radius:50%;background:#00ff88;animation:blink 2s ease-in-out infinite;flex-shrink:0}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 .last-updated{font-size:.7rem;color:var(--muted)}
-.filter-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem}
-.filter-btn{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:transparent;border:.5px solid var(--border);padding:.35rem .9rem;border-radius:100px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;white-space:nowrap}
-.filter-btn.active,.filter-btn:hover{color:var(--gold);border-color:rgba(245,197,24,.5);background:rgba(245,197,24,.06)}
 .shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem}
 .shop-card{background:var(--bg3);border:.5px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color .3s,transform .3s var(--ease);cursor:pointer}
 .shop-card:hover{border-color:rgba(245,197,24,.4);transform:translateY(-4px)}
@@ -229,7 +226,7 @@ footer{border-top:.5px solid var(--border);padding:2rem 3rem;display:flex;align-
         </div>
       </div>
     </div>
-    <div class="shop-grid reveal d2" id="shop-grid"></div>
+    <div class="shop-grid reveal d1" id="shop-grid"></div>
   </div>
 </section>
 <section id="links" class="links-section">
@@ -349,7 +346,6 @@ async function loadShop(){
     const d=await r.json();
     allItems=d.items||[];
     if(!allItems.length)throw new Error('Empty');
-    buildFilters();
     renderCards();
     document.getElementById('shop-date').textContent="Today's shop — "+(d.date||'');
     document.getElementById('last-updated').textContent='Updated '+(d.updated||'');
