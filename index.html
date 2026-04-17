@@ -441,7 +441,7 @@ async function loadLeaks(){
   document.getElementById('last-updated').textContent='Checking API...';
   showSkeletons();
   try{
-    const r=await fetch('https://fortnite-api.com/v2/cosmetics/new');
+    const r=await fetch('https://corsproxy.io/?https://fortnite-api.com/v2/cosmetics/new');
     if(!r.ok)throw new Error('API error');
     const d=await r.json();
     let items=[];
