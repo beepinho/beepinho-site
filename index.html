@@ -77,7 +77,10 @@ section{padding:8rem 3rem}
 .live-dot{width:6px;height:6px;border-radius:50%;background:#00ff88;animation:blink 2s ease-in-out infinite;flex-shrink:0}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 .last-updated{font-size:.7rem;color:var(--muted)}
-.shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem}
+.shop-sections{display:flex;flex-direction:column;gap:3rem}
+.shop-section-title{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.2rem;display:flex;align-items:center;gap:.8rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.shop-section-title::after{content:'';flex:1;height:.5px;background:var(--border)}
+.shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.8rem}
 .shop-card{background:var(--bg3);border:.5px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color .3s,transform .3s var(--ease);cursor:pointer}
 .shop-card:hover{border-color:rgba(245,197,24,.4);transform:translateY(-4px)}
 .shop-card-img{width:100%;aspect-ratio:1;object-fit:contain;background:var(--bg4);display:block}
@@ -302,7 +305,7 @@ footer{border-top:.5px solid var(--border);padding:2rem 3rem;display:flex;flex-d
         </div>
       </div>
     </div>
-    <div class="shop-grid reveal d2" id="shop-grid"></div>
+    <div class="shop-sections reveal d2" id="shop-grid"></div>
   </div>
 </section>
 <section id="links" class="links-section">
@@ -392,16 +395,27 @@ function cardHTML(item){
 }
 
 function showSkeletons(){
-  document.getElementById('shop-grid').innerHTML=Array(12).fill(0).map(()=>
-    '<div class="shop-skeleton"><div class="skel-img"></div><div class="skel-body"><div class="skel-line m"></div><div class="skel-line s"></div></div></div>'
-  ).join('');
+  const grid=document.getElementById('shop-grid');
+  let s='';
+  for(var i=0;i<3;i++){
+    s+='<div class="shop-section-block"><div class="shop-section-title" style="-webkit-text-fill-color:var(--muted)">Loading...</div><div class="shop-grid">';
+    for(var j=0;j<6;j++) s+='<div class="shop-skeleton"><div class="skel-img"></div><div class="skel-body"><div class="skel-line m"></div><div class="skel-line s"></div></div></div>';
+    s+='</div></div>';
+  }
+  grid.innerHTML=s;
 }
 
-function renderCards(){
+function renderCards(sections){
   const grid=document.getElementById('shop-grid');
-  const filtered=activeFilter==='all'?allItems:allItems.filter(i=>i.type===activeFilter);
-  if(!filtered.length){grid.innerHTML='<div class="no-results">No items for this filter.</div>';return;}
-  grid.innerHTML=filtered.map(cardHTML).join('');
+  if(!sections||!sections.length){
+    grid.innerHTML='<div class="no-results">Shop loading... Check back soon! 🐝</div>';return;
+  }
+  grid.innerHTML=sections.map(function(sec){
+    return '<div class="shop-section-block">'
+      +'<div class="shop-section-title">'+sec.name+'</div>'
+      +'<div class="shop-grid">'+sec.items.map(cardHTML).join('')+'</div>'
+      +'</div>';
+  }).join('');
 }
 
 // Gallery
@@ -476,9 +490,9 @@ async function loadShop(){
     const r=await fetch('/api/shop?t='+Date.now());
     if(!r.ok)throw new Error('API error');
     const d=await r.json();
-    allItems=d.items||[];
-    if(!allItems.length)throw new Error('Empty');
-    renderCards();
+    const sections=d.sections||[];
+    if(!sections.length)throw new Error('Empty');
+    renderCards(sections);
     document.getElementById('shop-date').textContent="Today's shop — "+(d.date||'');
     document.getElementById('last-updated').textContent='Updated '+(d.updated||'');
   }catch(e){
