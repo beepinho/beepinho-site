@@ -408,11 +408,11 @@ function renderCards(){
   // Auto slide
   var autoTimer=setInterval(function(){
     goTo(current>=maxSlide?0:current+1);
-  },3000);
+  },5000);
   if(track){
     track.addEventListener('mouseenter',function(){clearInterval(autoTimer);});
     track.addEventListener('mouseleave',function(){
-      autoTimer=setInterval(function(){goTo(current>=maxSlide?0:current+1);},3000);
+      autoTimer=setInterval(function(){goTo(current>=maxSlide?0:current+1);},5000);
     });
   }
   buildDots();
@@ -456,7 +456,7 @@ function sendForm(e){
   e.preventDefault();
   const btn=e.target.querySelector('button');
   btn.textContent='Sent ✓';btn.style.background='#1a1a12';btn.style.color='var(--gold)';
-  setTimeout(()=>{btn.textContent='Send message →';btn.style.background='';btn.style.color='';e.target.reset();},3000);
+  setTimeout(()=>{btn.textContent='Send message →';btn.style.background='';btn.style.color='';e.target.reset();},5000);
 }
 
 loadShop();
