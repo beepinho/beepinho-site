@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Beepinho</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--gold:#f5c518;--bg:#06060a;--bg2:#0d0d14;--bg3:#13131c;--bg4:#1a1a26;--text:#f2f0ec;--muted:#6b6a72;--border:rgba(255,255,255,0.07);--ease:cubic-bezier(0.16,1,0.3,1)}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden;cursor:none}
-.cursor{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden}
+width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s}
 .cursor-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(245,197,24,.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
 nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:1.4rem 3rem;transition:background .4s,border .4s}
 nav.scrolled{background:rgba(6,6,10,.92);backdrop-filter:blur(20px);border-bottom:.5px solid var(--border)}
@@ -117,7 +117,7 @@ section{padding:8rem 3rem}
 .contact-form input::placeholder,.contact-form textarea::placeholder{color:var(--muted)}
 .contact-form input:focus,.contact-form textarea:focus{border-color:rgba(245,197,24,.4)}
 .contact-form textarea{min-height:130px}
-footer{border-top:.5px solid var(--border);padding:2rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+footer{border-top:.5px solid var(--border);padding:2rem 3rem;display:flex;flex-direction:column;align-items:center;gap:.8rem;text-align:center}
 .footer-copy{font-size:.72rem;color:var(--muted);letter-spacing:.06em}
 @media(max-width:768px){
   nav{padding:1rem 1.5rem}.nav-links{gap:1.2rem}
@@ -137,7 +137,7 @@ footer{border-top:.5px solid var(--border);padding:2rem 3rem;display:flex;align-
 <div class="cursor-ring" id="ring"></div>
 
 <nav id="nav">
-  <a class="nav-logo" href="#">Beepinho</a>
+  <a href="#"><img src="images/title_2.png" alt="Beepinho" style="height:36px;width:auto"></a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#island">Island</a></li>
@@ -149,10 +149,9 @@ footer{border-top:.5px solid var(--border);padding:2rem 3rem;display:flex;align-
 
 <section class="hero">
   <div class="hero-bg"></div>
-  <div class="hero-line"></div>
+  <img src="images/logo_beta.png" alt="Beepinho" style="width:450px;max-width:50vw;opacity:0;animation:fadeUp 1s var(--ease) .9s forwards">
   <p class="hero-eyebrow">Epic Partner &nbsp;·&nbsp; Fortnite Creative &nbsp;·&nbsp; UEFN</p>
-  <h1><span class="w w1">BEE</span><span class="w w2">PINHO</span></h1>
-  <p class="hero-sub">Fortnite Creative map designer and Epic Partner — building immersive worlds with UEFN and bringing you today's item shop every day.</p>
+  <p class="hero-sub">A Fortnite Creative map designer and Epic Partner specializing in immersive world‑building with UEFN, supported by solid experience in gameplay mechanics and Unreal Engine workflows.</p>
   <div class="hero-ctas">
     <a href="#island" class="btn-p">View my island ↓</a>
     <a href="#shop" class="btn-g">Today's item shop</a>
@@ -161,29 +160,29 @@ footer{border-top:.5px solid var(--border);padding:2rem 3rem;display:flex;align-
 </section>
 
 <div class="stats">
-  <div class="stat reveal"><div class="stat-n">860+</div><div class="stat-l">Favorites</div></div>
+  <div class="stat reveal"><div class="stat-n">16,3K</div><div class="stat-l">Favorites</div></div>
   <div class="stat reveal d1"><div class="stat-n">25K</div><div class="stat-l">Hours Played</div></div>
-  <div class="stat reveal d2"><div class="stat-n">Epic</div><div class="stat-l">Partner</div></div>
+  <div class="stat reveal d2"><div class="stat-n">EPIC</div><div class="stat-l">Partner</div></div>
   <div class="stat reveal d3"><div class="stat-n">UEFN</div><div class="stat-l">Creator</div></div>
 </div>
 
 <section id="about">
   <div class="inner">
-    <div class="about-grid">
-      <div class="reveal">
-        <p class="eyebrow">About me</p>
-        <h2 class="big-title">Map designer<br>&amp; Epic<br>Partner</h2>
-        <div class="skills-list">
-          <span class="skill-tag">UEFN</span><span class="skill-tag">Verse</span><span class="skill-tag">Unreal Engine 5</span>
-          <span class="skill-tag">Level Design</span><span class="skill-tag">Map Scripting</span><span class="skill-tag">Social Hubs</span>
-          <span class="skill-tag">Battle Maps</span><span class="skill-tag">Puzzle Design</span>
-        </div>
+    <div class="about-grid" style="align-items:center">
+      <div class="reveal" style="display:flex;flex-direction:column;align-items:center;justify-content:center">
+        <img src="images/pfp.png" alt="Beepinho" style="width:100%;max-width:380px;border-radius:20px;display:block;margin-bottom:1.5rem">
       </div>
       <div class="reveal d1">
-        <span class="about-tag">// beepinho.com</span>
-        <p class="about-body"><strong>Beepinho</strong> is a Fortnite Creative map designer and Epic Partner dedicated to crafting <strong>immersive, innovative gaming experiences</strong> inside UEFN.</p>
-        <p class="about-body">Her maps span every genre — from intense PvP battle arenas and mind-bending puzzle maps to vibrant social hubs where thousands of players hang out, roleplay, and connect.</p>
-        <p class="about-body">As an <strong>Epic Partner</strong>, her islands receive special visibility from Epic Games — a recognition of the quality and creativity she brings to every project.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.8rem">
+          <span style="font-size:.75rem;background:rgba(245,197,24,.06);border:.5px solid rgba(245,197,24,.2);padding:.3rem .9rem;border-radius:100px;color:var(--gold)">🇬🇧 English</span>
+          <span style="font-size:.75rem;background:rgba(245,197,24,.06);border:.5px solid rgba(245,197,24,.2);padding:.3rem .9rem;border-radius:100px;color:var(--gold)">🇫🇷 French</span>
+          <span style="font-size:.75rem;background:rgba(245,197,24,.06);border:.5px solid rgba(245,197,24,.2);padding:.3rem .9rem;border-radius:100px;color:var(--gold)">🇩🇪 German</span>
+          <span style="font-size:.75rem;background:rgba(245,197,24,.06);border:.5px solid rgba(245,197,24,.2);padding:.3rem .9rem;border-radius:100px;color:var(--gold)">🇱🇺 Luxemburgish</span>
+          <span style="font-size:.75rem;background:rgba(245,197,24,.06);border:.5px solid rgba(245,197,24,.2);padding:.3rem .9rem;border-radius:100px;color:var(--gold)">🇵🇹 Portuguese</span>
+        </div>
+        <p class="about-body"><strong>Beepinho</strong> is a Fortnite Creative map designer and Epic Partner dedicated to crafting <strong>immersive, innovative experiences</strong> inside UEFN.</p>
+        <p class="about-body">Well known for creating Party Royale–style maps, her work focuses on large‑scale social spaces designed for player interaction, events, and roleplay. She has also developed competitive PvP arenas and creative puzzle experiences, covering a wide range of Fortnite Creative genres.</p>
+        <p class="about-body"><strong>Epic Partner</strong> status provides her islands with increased visibility from Epic Games, reflecting a recognized standard of quality and creative execution.</p>
       </div>
     </div>
   </div>
@@ -193,7 +192,7 @@ footer{border-top:.5px solid var(--border);padding:2rem 3rem;display:flex;align-
   <div class="inner">
     <div class="reveal"><p class="eyebrow">Featured island</p><h2 class="big-title">Latest creation</h2></div>
     <div class="island-grid">
-      <div class="island-img reveal">Island screenshot goes here</div>
+      <div class="island-img reveal"><img src="images/island.png" alt="ASHTVN island"></div>
       <div class="reveal d1">
         <p class="island-meta">Ashy's Party Royale</p>
         <h3 class="island-title">ASHTVN</h3>
@@ -201,7 +200,7 @@ footer{border-top:.5px solid var(--border);padding:2rem 3rem;display:flex;align-
         <div class="island-tags">
           <span class="itag">Social Hub</span><span class="itag">Roleplay</span><span class="itag">Mini-games</span><span class="itag">UEFN</span>
         </div>
-        <p class="island-body">A vibrant, Hollywood-inspired social hub built entirely in UEFN. Every corner is packed with detail — neon-lit storefronts, rooftop hangouts, and hidden mini-games. Built for players who want to explore, connect, and create unforgettable moments together.</p>
+        <p class="island-body">A vibrant, Hollywood-inspired social hub built entirely in UEFN. Every corner is packed with detail - neon-lit storefronts, rooftop hangouts, and hidden mini-games. Built for players who want to explore, connect, and create unforgettable moments together.</p>
         <a href="https://www.fortnite.com/@ashy/9631-5699-3120" class="btn-p" target="_blank">Play now ↗</a>
       </div>
     </div>
@@ -272,19 +271,12 @@ footer{border-top:.5px solid var(--border);padding:2rem 3rem;display:flex;align-
 </section>
 
 <footer>
-  <a class="nav-logo" href="#">Beepinho</a>
+  <a href="#"><img src="images/title_1.png" alt="Beepinho" style="height:20px;width:auto"></a>
   <p class="footer-copy">© 2026 Beepinho · All rights reserved · Epic Partner</p>
+  <p class="footer-copy" style="max-width:700px;text-align:center;opacity:.5;font-size:.6rem">Unreal Engine and its logo are trademarks or registered trademarks of Epic Games, Inc. in the US and elsewhere. Used for informational purposes only.</p>
 </footer>
 
 <script>
-const cur=document.getElementById('cur'),ring=document.getElementById('ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
-(function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop)})();
-document.querySelectorAll('a,button').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cur.style.width='14px';cur.style.height='14px';ring.style.width='48px';ring.style.height='48px'});
-  el.addEventListener('mouseleave',()=>{cur.style.width='8px';cur.style.height='8px';ring.style.width='32px';ring.style.height='32px'});
-});
 const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>40));
