@@ -10,20 +10,32 @@ export default async function handler(req) {
     });
     const raw = await r.json();
     const now = new Date();
-    const entries = raw?.data?.entries || [];
-    const sections = {};
+    const items = [];
     const seen = new Set();
 
-    for (const entry of entries) {
-      const price = entry.finalPrice || entry.regularPrice || 0;
-      const entryItems = entry.brItems || entry.items || [];
-      const bundle = entry.bundle;
-      const sectionName = entry.layout?.name || 'Featured';
-      const sectionRank = entry.layout?.rank || 999;
+    // Collect ALL entries from ALL sections of the shop
+    const allEntries = [];
+    const shopData = raw?.data || {};
 
-      if (!sections[sectionName]) {
-        sections[sectionName] = { name: sectionName, rank: sectionRank, items: [] };
+    // Main entries
+    if (shopData.entries) allEntries.push(...shopData.entries);
+
+    // Some API versions nest under named sections
+    for (const key of Object.keys(shopData)) {
+      const section = shopData[key];
+      if (Array.isArray(section)) {
+        for (const entry of section) {
+          if (entry && (entry.items || entry.bundle)) allEntries.push(entry);
+        }
+      } else if (section && Array.isArray(section.entries)) {
+        allEntries.push(...section.entries);
       }
+    }
+
+    for (const entry of allEntries) {
+      const price = entry.finalPrice || entry.regularPrice || 0;
+      const entryItems = entry.items || [];
+      const bundle = entry.bundle;
 
       if (bundle && bundle.name) {
         const key = 'bundle_' + bundle.name;
@@ -32,14 +44,7 @@ export default async function handler(req) {
           const bundleImg = bundle.image
             || entryItems.find(i => i.images?.featured)?.images?.featured
             || entryItems.find(i => i.images?.icon)?.images?.icon || '';
-          sections[sectionName].items.push({
-            name: bundle.name,
-            type: 'Bundle',
-            rarity: '',
-            image: bundleImg,
-            price,
-            isBundle: true
-          });
+          items.push({ name: bundle.name, type: 'Bundle', rarity: '', description: bundle.info || '', image: bundleImg, price });
         }
       }
 
@@ -48,25 +53,22 @@ export default async function handler(req) {
         if (!key || seen.has(key)) continue;
         if (!item.name || item.name.startsWith('TBD') || item.name === 'Random') continue;
         seen.add(key);
-        sections[sectionName].items.push({
+        items.push({
           name: item.name,
           type: item.type?.value || 'Cosmetic',
           rarity: item.rarity?.value || '',
+          description: item.description || '',
           image: item.images?.featured || item.images?.icon || item.images?.smallIcon || '',
           price
         });
       }
     }
 
-    // Sort sections by rank
-    const sortedSections = Object.values(sections)
-      .filter(s => s.items.length > 0)
-      .sort((a, b) => a.rank - b.rank);
-
     const data = {
       updated: now.toISOString().slice(0,16).replace('T',' ') + ' UTC',
       date: now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
-      sections: sortedSections
+      count: items.length,
+      items
     };
 
     return new Response(JSON.stringify(data), {
@@ -77,7 +79,7 @@ export default async function handler(req) {
       }
     });
   } catch (e) {
-    return new Response(JSON.stringify({ error: e.message, sections: [] }), {
+    return new Response(JSON.stringify({ error: e.message, items: [] }), {
       status: 500,
       headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
     });
