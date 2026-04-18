@@ -71,26 +71,23 @@ section{padding:8rem 3rem}
 .island-body{font-size:.95rem;color:var(--muted);line-height:1.8;font-weight:300;margin-bottom:2rem}
 .island-tags{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
 .itag{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);background:rgba(245,197,24,.07);border:.5px solid rgba(245,197,24,.2);padding:.25rem .65rem;border-radius:4px}
-.shop-section{background:var(--bg);border-top:.5px solid var(--border)}
-.shop-header{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:3rem}
-.live-badge{display:inline-flex;align-items:center;gap:.5rem;font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);border:.5px solid rgba(245,197,24,.3);padding:.4rem 1rem;border-radius:100px}
+.news-section{background:var(--bg);border-top:.5px solid var(--border)}
+.news-header{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:3rem}
+.live-badge{display:inline-flex;align-items:center;gap:.5rem;font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:#00ff88;border:.5px solid rgba(0,255,136,.3);padding:.4rem 1rem;border-radius:100px}
 .live-dot{width:6px;height:6px;border-radius:50%;background:#00ff88;animation:blink 2s ease-in-out infinite;flex-shrink:0}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.last-updated{font-size:.7rem;color:var(--muted)}
-.shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem}
-.shop-card{background:var(--bg3);border:.5px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color .3s,transform .3s var(--ease);cursor:pointer}
-.shop-card:hover{border-color:rgba(245,197,24,.4);transform:translateY(-4px)}
-.shop-card-img{width:100%;aspect-ratio:1;object-fit:contain;background:var(--bg4);display:block}
-.shop-card-img-placeholder{width:100%;aspect-ratio:1;background:var(--bg4);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase}
-.shop-card-body{padding:1rem}
-.shop-card-name{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;line-height:1.2;margin-bottom:.5rem;color:var(--text)}
-.shop-price-row{display:flex;align-items:center;gap:.3rem}
-.vbucks-icon{font-size:.7rem;color:var(--gold);font-weight:700}
-.shop-price{font-size:.85rem;color:var(--gold);font-weight:700;font-family:'Syne',sans-serif}
-.shop-rarity{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;margin-top:.3rem;font-weight:500}
-.shop-skeleton{background:var(--bg3);border:.5px solid var(--border);border-radius:16px;overflow:hidden;animation:shimmer 1.5s ease-in-out infinite}
+.news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}
+.news-card{background:var(--bg3);border:.5px solid var(--border);border-radius:16px;overflow:hidden;transition:border-color .3s,transform .3s var(--ease);cursor:default}
+.news-card:hover{border-color:rgba(245,197,24,.35);transform:translateY(-5px)}
+.news-card-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:var(--bg4)}
+.news-card-img-placeholder{width:100%;aspect-ratio:16/9;background:var(--bg4);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase}
+.news-card-body{padding:1.3rem}
+.news-card-mode{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;font-weight:600}
+.news-card-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;line-height:1.25;margin-bottom:.5rem;color:var(--text)}
+.news-card-body-text{font-size:.82rem;color:var(--muted);line-height:1.65;font-weight:300}
+.news-skeleton{background:var(--bg3);border:.5px solid var(--border);border-radius:16px;overflow:hidden;animation:shimmer 1.5s ease-in-out infinite}
 @keyframes shimmer{0%,100%{opacity:.4}50%{opacity:.8}}
-.skel-img{width:100%;aspect-ratio:1;background:var(--bg4)}
+.skel-img{width:100%;aspect-ratio:16/9;background:var(--bg4)}
 .skel-body{padding:1.2rem;display:flex;flex-direction:column;gap:.8rem}
 .skel-line{height:11px;background:var(--bg4);border-radius:4px}
 .skel-line.s{width:35%}.skel-line.m{width:60%}
@@ -128,7 +125,7 @@ footer{border-top:.5px solid var(--border);padding:2rem 3rem;display:flex;flex-d
   .stats{grid-template-columns:1fr 1fr}
   .links-grid{grid-template-columns:1fr}
   .hero h1{font-size:clamp(3.5rem,16vw,6rem)}
-  .shop-grid{grid-template-columns:1fr 1fr}
+  .news-grid{grid-template-columns:1fr}
   .support-box{padding:1.5rem}
 }
 
@@ -156,7 +153,7 @@ footer{border-top:.5px solid var(--border);padding:2rem 3rem;display:flex;flex-d
 .stat::after{background:var(--grad)}
 .btn-p{background:var(--grad)}
 .btn-p:hover{box-shadow:0 0 32px rgba(232,98,26,.35)}
-.shop-price,.vbucks-icon{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.news-card-mode{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .affil-dot{background:var(--grad)}
 .gallery-dot.active{background:var(--grad)}
 .support-sub strong{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
@@ -179,7 +176,7 @@ footer{border-top:.5px solid var(--border);padding:2rem 3rem;display:flex;flex-d
     <li><a href="#about">About</a></li>
     <li><a href="#island">Island</a></li>
     <li><a href="#gallery">Gallery</a></li>
-    <li><a href="#shop">Item Shop</a></li>
+    <li><a href="#news">News</a></li>
     <li><a href="#links">Support</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -193,7 +190,7 @@ footer{border-top:.5px solid var(--border);padding:2rem 3rem;display:flex;flex-d
   <p class="hero-sub">A Fortnite Creative map designer and Epic Partner specializing in immersive world‑building with UEFN, supported by solid experience in gameplay mechanics and Unreal Engine workflows.</p>
   <div class="hero-ctas">
     <a href="#island" class="btn-p">View my island ↓</a>
-    <a href="#shop" class="btn-g">Today's item shop</a>
+    <a href="#news" class="btn-g">Fortnite News</a>
   </div>
 
 </section>
@@ -287,22 +284,21 @@ footer{border-top:.5px solid var(--border);padding:2rem 3rem;display:flex;flex-d
   </div>
 </section>
 
-<section class="shop-section" id="shop">
+<section class="news-section" id="news">
   <div class="inner">
     <div class="reveal">
-      <p class="eyebrow">Updated daily at midnight UTC</p>
-      <div class="shop-header">
+      <p class="eyebrow">Straight from the game client</p>
+      <div class="news-header">
         <div>
-          <h2 class="big-title" style="margin-bottom:.5rem">Item Shop</h2>
-          <p style="font-size:.95rem;color:var(--muted);font-weight:300;max-width:500px" id="shop-date">Loading today's shop...</p>
+          <h2 class="big-title" style="margin-bottom:.5rem">Fortnite News</h2>
+          <p style="font-size:.95rem;color:var(--muted);font-weight:300;max-width:500px">What's happening in Fortnite right now.</p>
         </div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:.8rem">
-          <div class="live-badge"><span class="live-dot"></span>Live</div>
-          <div class="last-updated" id="last-updated">Loading...</div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.8rem">
+          <div class="live-badge"><span class="live-dot"></span>Auto-updated</div>
         </div>
       </div>
     </div>
-    <div class="shop-grid reveal d2" id="shop-grid"></div>
+    <div class="news-grid reveal d2" id="news-grid"></div>
   </div>
 </section>
 <section id="links" class="links-section">
@@ -355,56 +351,35 @@ const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.targ
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>40));
 
-let allItems=[];
-let activeFilter='all';
-const TYPE_LABELS={'Outfit':'Skins','Emote':'Emotes','Back Bling':'Back Blings','Pickaxe':'Pickaxes','Glider':'Gliders','Wrap':'Wraps','Bundle':'Bundles','Spray':'Sprays','Contrail':'Contrails','Toy':'Toys'};
-
-function rarityColor(r){
-  const v=(r||'').toLowerCase();
-  if(v.includes('legendary'))return '#f5a623';
-  if(v.includes('epic'))return '#9b59b6';
-  if(v.includes('rare'))return '#3498db';
-  if(v.includes('uncommon'))return '#2ecc71';
-  return null;
-}
-
-function setFilter(f,btn){
-  activeFilter=f;
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderCards();
-}
-
-function cardHTML(item){
-  const img=item.image||'';
-  const rarity=item.rarity||'';
-  const price=item.price||0;
-  const rc=rarityColor(rarity);
-  const safeName=(item.name||'').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-  return '<div class="shop-card">'
-    +(img?'<img class="shop-card-img" src="'+img+'" alt="'+safeName+'" loading="lazy" onerror="this.style.display=\'none\'">'
-        :'<div class="shop-card-img-placeholder">No image</div>')
-    +'<div class="shop-card-body">'
-    +'<div class="shop-card-name">'+(item.name||'')+'</div>'
-    +(price?'<div class="shop-price-row"><span class="vbucks-icon">V</span><span class="shop-price">'+price.toLocaleString()+'</span></div>':'')
-    +(rarity&&rc?'<div class="shop-rarity" style="color:'+rc+'">'+rarity+'</div>':'')
-    +'</div></div>';
-}
-
-function showSkeletons(){
-  document.getElementById('shop-grid').innerHTML=Array(12).fill(0).map(()=>
-    '<div class="shop-skeleton"><div class="skel-img"></div><div class="skel-body"><div class="skel-line m"></div><div class="skel-line s"></div></div></div>'
+async function loadNews(){
+  const grid=document.getElementById('news-grid');
+  grid.innerHTML=Array(4).fill(0).map(()=>
+    '<div class="news-skeleton"><div class="skel-img"></div><div class="skel-body"><div class="skel-line s"></div><div class="skel-line m"></div><div class="skel-line"></div></div></div>'
   ).join('');
+  try{
+    const r=await fetch('/api/news?t='+Date.now());
+    if(!r.ok)throw new Error('API error');
+    const d=await r.json();
+    const cards=d.cards||[];
+    if(!cards.length)throw new Error('Empty');
+    grid.innerHTML=cards.map(c=>{
+      const safeTitle=(c.title||'').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+      return '<div class="news-card">'
+        +(c.image
+          ?'<img class="news-card-img" src="'+c.image+'" alt="'+safeTitle+'" loading="lazy" onerror="this.parentNode.querySelector(\'.news-card-img\').style.display=\'none\'">'
+          :'<div class="news-card-img-placeholder">No image</div>')
+        +'<div class="news-card-body">'
+        +'<div class="news-card-mode">'+(c.mode||'')+'</div>'
+        +'<div class="news-card-title">'+(c.title||'')+'</div>'
+        +(c.body?'<div class="news-card-body-text">'+c.body+'</div>':'')
+        +'</div></div>';
+    }).join('');
+  }catch(e){
+    grid.innerHTML='<div class="no-results">News loading... Check back soon! 🐝</div>';
+  }
 }
 
-function renderCards(){
-  const grid=document.getElementById('shop-grid');
-  const filtered=activeFilter==='all'?allItems:allItems.filter(i=>i.type===activeFilter);
-  if(!filtered.length){grid.innerHTML='<div class="no-results">No items for this filter.</div>';return;}
-  grid.innerHTML=filtered.map(cardHTML).join('');
-}
-
-// Gallery
+loadNews();
 (function(){
   var track=document.getElementById('galleryTrack');
   if(!track) return;
@@ -470,32 +445,7 @@ function renderCards(){
   window.addEventListener('resize',function(){ buildDots(); goTo(0); });
 })();
 
-async function loadShop(){
-  showSkeletons();
-  try{
-    const r=await fetch('/api/shop?t='+Date.now());
-    if(!r.ok)throw new Error('API error');
-    const d=await r.json();
-    allItems=d.items||[];
-    if(!allItems.length)throw new Error('Empty');
-    renderCards();
-    document.getElementById('shop-date').textContent="Today's shop — "+(d.date||'');
-    document.getElementById('last-updated').textContent='Updated '+(d.updated||'');
-  }catch(e){
-    document.getElementById('shop-grid').innerHTML='<div class="no-results">Shop loading... Check back soon! 🐝</div>';
-    document.getElementById('shop-date').textContent="Today's Fortnite Item Shop";
-    document.getElementById('last-updated').textContent='Loading...';
-  }
-}
 
-function sendForm(e){
-  e.preventDefault();
-  const btn=e.target.querySelector('button');
-  btn.textContent='Sent ✓';btn.style.background='#1a1a12';btn.style.color='var(--gold)';
-  setTimeout(()=>{btn.textContent='Send message →';btn.style.background='';btn.style.color='';e.target.reset();},3000);
-}
-
-loadShop();
 </script>
 </body>
 </html>
