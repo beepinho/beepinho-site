@@ -142,7 +142,12 @@ footer{border-top:.5px solid var(--border);padding:2rem 3rem;display:flex;flex-d
   .gallery-section .big-title{text-align:left}
   .gallery-section .eyebrow{text-align:left}
   .support-box img[src*="character"]{display:none}
-  .gallery-section .reveal{flex-direction:column;align-items:flex-start;gap:1rem}
+  .gallery-section .reveal{flex-direction:column;align-items:flex-start;gap:1rem;justify-content:flex-start}
+  .gallery-section .reveal>div:first-child{width:100%;text-align:left}
+  .gallery-section .reveal>div:last-child{width:100%;justify-content:flex-start}
+  .gallery-section .reveal>div:last-child span{width:auto;text-align:left}
+  .gallery-section .big-title{text-align:left}
+  .gallery-section .eyebrow{text-align:left}
 }
 
 .gallery-section{background:var(--bg2);border-top:.5px solid var(--border);border-bottom:.5px solid var(--border)}
