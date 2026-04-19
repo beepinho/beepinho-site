@@ -119,15 +119,28 @@ section{padding:8rem 3rem}
 .contact-form textarea{min-height:130px}
 footer{border-top:.5px solid var(--border);padding:2rem 3rem;display:flex;flex-direction:column;align-items:center;gap:.8rem;text-align:center}
 .footer-copy{font-size:.72rem;color:var(--muted);letter-spacing:.06em}
+.nav-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.4rem;background:none;border:none;z-index:300}
+.nav-burger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all .3s var(--ease)}
+.nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-burger.open span:nth-child(2){opacity:0}
+.nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 @media(max-width:768px){
-  nav{padding:1rem 1.5rem}.nav-links{gap:1.2rem}
+  nav{padding:1rem 1.5rem}
+  .nav-burger{display:flex}
+  .nav-links{display:none;flex-direction:column;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(6,6,10,.97);backdrop-filter:blur(20px);justify-content:center;align-items:center;gap:2.5rem;z-index:250}
+  .nav-links.open{display:flex}
+  .nav-links a{font-size:1.1rem;letter-spacing:.12em}
   section{padding:5rem 1.5rem}
-  .about-grid,.island-grid{grid-column:1fr;gap:2.5rem}
+  .about-grid{display:flex;flex-direction:column;gap:2rem}
+  .island-grid{display:flex;flex-direction:column;gap:2rem}
+  .island-img{width:100%}
   .stats{grid-template-columns:1fr 1fr}
   .links-grid{grid-template-columns:1fr}
   .hero h1{font-size:clamp(3.5rem,16vw,6rem)}
   .news-grid{grid-template-columns:1fr}
-  .support-box{padding:1.5rem}
+  .support-box{padding:1.5rem;padding-left:1.5rem!important;padding-right:1.5rem!important}
+  .support-box img[src*="character"]{display:none}
+  .gallery-section .reveal{flex-direction:column;align-items:flex-start;gap:1rem}
 }
 
 .gallery-section{background:var(--bg2);border-top:.5px solid var(--border);border-bottom:.5px solid var(--border)}
@@ -173,7 +186,10 @@ footer{border-top:.5px solid var(--border);padding:2rem 3rem;display:flex;flex-d
 
 <nav id="nav">
   <a href="#"><img src="images/title_2.png" alt="Beepinho" style="height:36px;width:auto"></a>
-  <ul class="nav-links">
+  <button class="nav-burger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#island">Island</a></li>
     <li><a href="#gallery">Gallery</a></li>
@@ -368,6 +384,10 @@ footer{border-top:.5px solid var(--border);padding:2rem 3rem;display:flex;flex-d
 const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>40));
+const burger=document.getElementById('burger');
+const navLinks=document.getElementById('nav-links');
+burger.addEventListener('click',()=>{burger.classList.toggle('open');navLinks.classList.toggle('open');});
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{burger.classList.remove('open');navLinks.classList.remove('open');}));
 
 async function loadNews(){
   const grid=document.getElementById('news-grid');
